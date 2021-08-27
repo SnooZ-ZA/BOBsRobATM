@@ -1,12 +1,12 @@
 # BOBsRobATM
 
-Rob ATM Machines
+ESX Rob ATM Machines
 
-#Preview
+# Preview
 
 https://youtu.be/77jUanARmyE
 
-Dependancy:
+# Dependancy:
 
 rprogress
 https://forum.cfx.re/t/release-standalone-rprogress-customisable-radial-progress-bars/1630655
@@ -47,7 +47,7 @@ Random hack time and bars using mhacking minigame.
 
 If the player fails the hack, an ATM Hack in Progress alert with location is sent to police using esx_outlawalert
 
-Credit:
+# Credit:
 rprogress
 https://forum.cfx.re/t/release-standalone-rprogress-customisable-radial-progress-bars/1630655
 
