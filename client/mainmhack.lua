@@ -227,35 +227,8 @@ AddEventHandler('skinchanger:loadSkin', function(character)
 	playerGender = character.sex
 end)
 
-function ShowAdvancedNotification(icon, sender, title, text)
-    SetNotificationTextEntry("STRING")
-    AddTextComponentString(text)
-    SetNotificationMessage(icon, icon, true, 4, sender, title, text)
-    DrawNotification(false, true)
-end
-
 function ShowNotification(text)
     SetNotificationTextEntry("STRING")
     AddTextComponentString(text)
     DrawNotification(false, false)
 end
-
-RegisterNetEvent('bobs_ems:scaleform_showfreemodemessage')
-AddEventHandler('bobs_ems:scaleform_showfreemodemessage', function(title, msg, time)
-    local s = time
-    local scaleform = ESX.Scaleform.Utils.RequestScaleformMovie('MP_BIG_MESSAGE_FREEMODE')
-
-    BeginScaleformMovieMethod(scaleform, 'SHOW_SHARD_WASTED_MP_MESSAGE')
-	PushScaleformMovieMethodParameterString(title)
-	PushScaleformMovieMethodParameterString(msg)
-	EndScaleformMovieMethod()
-
-	while s > 0 do
-		Citizen.Wait(1)
-		s = s - 0.01
-
-		DrawScaleformMovieFullscreen(scaleform, 255, 255, 255, 255)
-	end
-
-    SetScaleformMovieAsNoLongerNeeded(scaleform)
-end)
