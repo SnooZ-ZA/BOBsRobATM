@@ -11,6 +11,5 @@ client_scripts {
 }
 
 server_scripts {
-	'server/functions.lua',
     'server/main.lua',
 }
