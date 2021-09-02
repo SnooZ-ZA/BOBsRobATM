@@ -11,9 +11,6 @@ Dependancy:
 rprogress
 https://forum.cfx.re/t/release-standalone-rprogress-customisable-radial-progress-bars/1630655
 
-my esx_outlawalert
-https://mega.nz/file/u7hU1BTZ#0YXcSm88gCt68iTVfU0HV2bM_mFs-AjYBD0y7tFQzlk
-
 mhacking
 https://forum.cfx.re/t/release-simple-hacking-minigame/62095
 
