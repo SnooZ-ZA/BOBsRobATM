@@ -1,5 +1,4 @@
 ESX        = nil
-percent    = false
 searching  = false
 cachedATM = {}
 
