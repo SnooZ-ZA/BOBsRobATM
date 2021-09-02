@@ -38,7 +38,7 @@ Press H to Hack ATM
 
 Random hack time and bars using mhacking minigame.
 
-If the player fails the hack, an ATM Hack in Progress alert with location is sent to police using esx_outlawalert
+If the player fails the hack, an ATM Hack Attempt alert with location blip is sent to police.
 
 Credit:
 rprogress
