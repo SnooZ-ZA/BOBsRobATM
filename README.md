@@ -30,8 +30,6 @@ Add to server.cfg
 
 ensure rprogress
 
-ensure esx_outlawalert
-
 ensure mhacking
 
 ensure BOBsRobATM
