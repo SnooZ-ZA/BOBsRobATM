@@ -5,19 +5,10 @@ cachedATM = {}
 Config = {}
 Config.CopsRequired = 0
 
---local anycops  = 0
-local streetName
-local _
-local playerGender
-
-local _source    = source
-
-
+local anycops  = 0
 local oPlayer = false
 local InVehicle = false
 local playerpos = false
-
-local pedindex = {}
 
 function loadAnimDict( dict )
     while ( not HasAnimDictLoaded( dict ) ) do
@@ -41,24 +32,6 @@ closestATM = {
     "prop_atm_03",
 	"prop_fleeca_atm"
 }
-
-Citizen.CreateThread(function ()
-    while ESX == nil do
-        TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-        Citizen.Wait(0)
-    end
-
-    while ESX.GetPlayerData().job == nil do
-		Citizen.Wait(10)
-	end
-	ESX.PlayerData = ESX.GetPlayerData()
-
-	TriggerEvent('skinchanger:getSkin', function(skin)
-		playerGender = skin.sex
-	end)
-
-    ESXLoaded = true
-end)
 
 Citizen.CreateThread(function()
     while ESX == nil do
@@ -108,6 +81,8 @@ Citizen.CreateThread(function()
 				ESX.TriggerServerCallback('esx_robatm:anycops', function(anycops)
 				if anycops >= Config.CopsRequired then
                     if not cachedATM[entity] then
+								atmheading = GetEntityHeading(entity)
+								SetEntityHeading(oPlayer, atmheading)
 								FreezeEntityPosition(oPlayer,true)
 								ESX.ShowNotification("~g~Success - Executing!")
 								searching = true
@@ -171,7 +146,7 @@ function mycb(success, timeremaining)
 								TriggerEvent('mhacking:hide')
 								RequestAnimDict("mp_common")
 								TaskPlayAnim(oPlayer, "mp_common", "givetake2_a", 8.0, 8.0, 2000, 0, 1, 0,0,0)
-								TriggerServerEvent('esx_robatm2:getMoney')
+								TriggerServerEvent('esx_robatm:getMoney')
 								Wait(3000)
 								ClearPedTasks(PlayerPedId())
 								FreezeEntityPosition(oPlayer,false)
@@ -181,11 +156,12 @@ function mycb(success, timeremaining)
 							print('Failure')
 							TriggerEvent('mhacking:hide')
 							Citizen.Wait(500)
-							TriggerServerEvent('esx_outlawalert:AtmHackInProgress', playerpos, streetName, playerGender)
+							local ped = PlayerId(-1)
+							TriggerServerEvent('esx_robatm:fail', ped)
 							ESX.ShowNotification("~r~You activated the CCTV! Police were notified!")
 							local cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
-							SetCamCoord(cam, atm.x, atm.y, atm.z + 3.5, 0)
-							SetCamRot(cam, -70.0, -10.0, 270.05, 2)
+							SetCamCoord(cam, atm.x, atm.y, atm.z + 1.6, 0)
+							SetCamRot(cam, 0, 0, atmheading - 180, 2)
 							RenderScriptCams(1, 0, 0, 1, 1)
 							SetTimecycleModifier("scanline_cam_cheap")
 							SetTimecycleModifierStrength(2.0)
@@ -197,16 +173,13 @@ function mycb(success, timeremaining)
 							SetFocusEntity(GetPlayerPed(PlayerId()))
 							ClearPedTasks(PlayerPedId())
 							FreezeEntityPosition(oPlayer,false)
-							searching = false
-							
-						
+							searching = false												
     end
 end
 
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-
         if searching then
             DisableControlAction(0, 73) 
 			DisableControlAction(0, 47)
@@ -214,20 +187,23 @@ Citizen.CreateThread(function()
     end
 end)
 
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(3000)
-		streetName,_ = GetStreetNameAtCoord(playerpos.x, playerpos.y, playerpos.z)
-		streetName = GetStreetNameFromHashKey(streetName)
-	end
-end)
-
-AddEventHandler('skinchanger:loadSkin', function(character)
-	playerGender = character.sex
-end)
-
 function ShowNotification(text)
     SetNotificationTextEntry("STRING")
     AddTextComponentString(text)
     DrawNotification(false, false)
 end
+
+
+RegisterNetEvent('esx_robatm:callCops')
+AddEventHandler('esx_robatm:callCops', function(ped)
+    local mugshot, mugshotStr = ESX.Game.GetPedMugshot(GetPlayerPed(ped))
+	ESX.ShowAdvancedNotification('Fleeca', 'ATM hack attempt!', 'We have sent a photo of the hacker taken by the CCTV!', mugshotStr, 4)
+    UnregisterPedheadshot(mugshot)
+    local Atm = AddBlipForCoord(playerpos.x, playerpos.y, playerpos.z)
+    SetBlipSprite(Atm , 161)
+    SetBlipScale(Atm , 2.0)
+    SetBlipColour(Atm, 1)
+    PulseBlip(Atm)
+	Wait(30*1000)
+    RemoveBlip(Atm)
+end)

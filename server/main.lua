@@ -18,11 +18,22 @@ ESX.RegisterServerCallback('esx_robatm:anycops',function(source, cb)
   cb(anycops)
 end)
 
-RegisterServerEvent('esx_robatm2:getMoney')
-AddEventHandler('esx_robatm2:getMoney', function()
+RegisterServerEvent('esx_robatm:getMoney')
+AddEventHandler('esx_robatm:getMoney', function()
 local player = ESX.GetPlayerFromId(source)
     local randomMoney = math.random(800, 2000)		
 		--player.addMoney(randomMoney)
 		player.addAccountMoney("black_money", randomMoney)
 		TriggerClientEvent('esx:showNotification', source, "~g~Success, You hacked the ATM for $ " .. randomMoney)
+end)
+
+RegisterServerEvent('esx_robatm:fail')
+AddEventHandler('esx_robatm:fail', function(ped)
+	local xPlayers = ESX.GetPlayers()
+	for i=1, #xPlayers, 1 do
+		local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+		if xPlayer.job.name == 'police' then
+			TriggerClientEvent('esx_robatm:callCops', xPlayers[i], ped)
+		end
+	end
 end)
