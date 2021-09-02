@@ -20,8 +20,6 @@ Extract files
 
 Add rprogress folder to server resources
 
-Add esx_outlawalert folder to server resources
-
 Add mhacking folder to server resources
 
 Add BOBsRobATM folder to server resources
