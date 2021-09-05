@@ -121,7 +121,6 @@ Citizen.CreateThread(function()
 								TriggerEvent("mhacking:start",bars,timing,mycb)
     
                     else
-                        --sendNotification('You have already hacked here!', 'error', 2000)
 						ESX.ShowNotification("You have already hacked here!")
                     end
 				else
