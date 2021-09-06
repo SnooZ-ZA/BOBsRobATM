@@ -126,10 +126,9 @@ Citizen.CreateThread(function()
 				else
 				ESX.ShowNotification("Not enough police!")	
                 end
-				end)
-                break
-				
+				end)				
 				end
+			      break		
             else
                 sleep = 1000
 				
