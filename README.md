@@ -34,7 +34,7 @@ ensure mhacking
 
 ensure BOBsRobATM
 
-add item 'atmcracker' to your database items
+add item 'atmcracker' to your database items. item removed on successful hack
 
 # Use:
 
