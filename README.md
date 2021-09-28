@@ -2,11 +2,11 @@
 
 Rob ATM Machines
 
-#Preview
+# Preview
 
 https://youtu.be/77jUanARmyE
 
-Dependancy:
+# Dependancy:
 
 rprogress
 https://forum.cfx.re/t/release-standalone-rprogress-customisable-radial-progress-bars/1630655
