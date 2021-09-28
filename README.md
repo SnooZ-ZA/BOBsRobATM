@@ -1,12 +1,12 @@
-# BOBsRobATM
+# BOBsRobATM - Fork, you need an item (atmcracker) to hack the ATM 
 
 Rob ATM Machines
 
-# Preview
+#Preview
 
 https://youtu.be/77jUanARmyE
 
-# Dependancy:
+Dependancy:
 
 rprogress
 https://forum.cfx.re/t/release-standalone-rprogress-customisable-radial-progress-bars/1630655
@@ -28,9 +28,13 @@ Add to server.cfg
 
 ensure rprogress
 
+ensure esx_outlawalert
+
 ensure mhacking
 
 ensure BOBsRobATM
+
+add item 'atmcracker' to your database items
 
 # Use:
 
@@ -38,7 +42,7 @@ Press H to Hack ATM
 
 Random hack time and bars using mhacking minigame.
 
-If the player fails the hack, an ATM Hack Attempt alert with location blip is sent to police.
+If the player fails the hack, an alert with location is sent to police
 
 Credit:
 rprogress

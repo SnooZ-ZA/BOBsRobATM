@@ -60,7 +60,6 @@ end)
 Citizen.CreateThread(function()
     Citizen.Wait(100)
     while true do
-        
         local sleep = 1000
         local playerPed = PlayerPedId()
         local playerCoords = GetEntityCoords(playerPed)
@@ -80,11 +79,13 @@ Citizen.CreateThread(function()
                 if IsControlJustReleased(0, 74) then
 				ESX.TriggerServerCallback('esx_robatm:anycops', function(anycops)
 				if anycops >= Config.CopsRequired then
-                    if not cachedATM[entity] then
+					ESX.TriggerServerCallback("esx_robatm:checkItem", function(hackItemCount)
+					if hackItemCount > 0 then
+						if not cachedATM[entity] then
 								atmheading = GetEntityHeading(entity)
 								SetEntityHeading(oPlayer, atmheading)
 								FreezeEntityPosition(oPlayer,true)
-								ESX.ShowNotification("~g~Success - Executing!")
+								ESX.ShowNotification("~g~Inserting Hacking device!")
 								searching = true
 								exports.rprogress:Custom({
 								Async = true,
@@ -120,15 +121,19 @@ Citizen.CreateThread(function()
 								TriggerEvent("mhacking:show")
 								TriggerEvent("mhacking:start",bars,timing,mycb)
     
-                    else
-						ESX.ShowNotification("You have already hacked here!")
-                    end
+						else
+							ESX.ShowNotification("You have already hacked here!")
+						end
+					else	
+					ESX.ShowNotification("~r~You don't have a hacking device!")
+					end
+					end)
 				else
 				ESX.ShowNotification("Not enough police!")	
                 end
-				end)				
+				end)               				
 				end
-			      break		
+				break
             else
                 sleep = 1000
 				
@@ -190,7 +195,6 @@ function ShowNotification(text)
     AddTextComponentString(text)
     DrawNotification(false, false)
 end
-
 
 RegisterNetEvent('esx_robatm:callCops')
 AddEventHandler('esx_robatm:callCops', function(ped)

@@ -16,5 +16,6 @@ drawText3D = function(x, y, z, text)
 		AddTextComponentString(text)
         DrawText(_x,_y)
         local factor = (string.len(text)) / 650
+        --DrawRect(_x, _y + 0.0120, 0.030 + factor , 0.030, 66, 66, 66, 100)
 	end
 end

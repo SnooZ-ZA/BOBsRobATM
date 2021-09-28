@@ -18,12 +18,20 @@ ESX.RegisterServerCallback('esx_robatm:anycops',function(source, cb)
   cb(anycops)
 end)
 
+ESX.RegisterServerCallback('esx_robatm:checkItem',function(source, cb)
+	local _source = source
+	local xPlayer = ESX.GetPlayerFromId(_source)
+	local hackItemCount = xPlayer.getInventoryItem('atmcracker').count
+  cb(hackItemCount)
+end)
+
 RegisterServerEvent('esx_robatm:getMoney')
 AddEventHandler('esx_robatm:getMoney', function()
-local player = ESX.GetPlayerFromId(source)
+local xPlayer = ESX.GetPlayerFromId(source)
     local randomMoney = math.random(800, 2000)		
 		--player.addMoney(randomMoney)
-		player.addAccountMoney("black_money", randomMoney)
+		xPlayer.addAccountMoney("black_money", randomMoney)
+		xPlayer.removeInventoryItem("atmcracker", 1)
 		TriggerClientEvent('esx:showNotification', source, "~g~Success, You hacked the ATM for $ " .. randomMoney)
 end)
 
